@@ -1,4 +1,4 @@
-/* IMO Morador — presentation polish */
+/* IMO Morador — stable presentation polish */
 (function(){
   const iconPaths={
     bell:'<path d="M18 8a6 6 0 0 0-12 0c0 6.5-3 7-3 9h18c0-2-3-2.5-3-9"/><path d="M10 21h4"/>',
@@ -9,7 +9,6 @@
     ticket:'<path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-7l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="M8 9h8M8 13h5"/>'
   };
 
-  /* Icons redrawn to follow the legacy artwork supplied by the client. */
   const modulePaths={
     'Manual do Proprietário':'<path d="M4 4h6.5A3.5 3.5 0 0 1 14 7.5V21H7.5A3.5 3.5 0 0 0 4 24z"/><path d="M20 4h-6.5A3.5 3.5 0 0 0 10 7.5V21h6.5A3.5 3.5 0 0 1 20 24z"/><circle cx="8" cy="9" r="2.5"/><path d="M8 5.5v1M8 11.5v1M4.5 9h1M10.5 9h1M6 7l.7.7M9.3 10.3l.7.7M10 7l-.7.7M6.7 10.3 6 11"/>',
     'Plantas para Furação':'<path d="M3 5h11v6H3z"/><path d="M14 7h4l3 2-3 2h-4"/><path d="M6 11v9h5v-9"/><path d="M19 9h3M2 3v18"/><path d="M5 15h7"/>',
@@ -22,27 +21,36 @@
     'Gestão das Garantias':'<path d="M12 3 15 5l3-.2 1.2 2.8L22 9l-1 3 1 3-2.8 1.4L18 19.2l-3-.2-3 2-3-2-3 .2-1.2-2.8L2 15l1-3-1-3 2.8-1.4L6 4.8 9 5z"/><path d="m8.5 12 2.2 2.2L16 9"/><path d="m7 18-2 5 5-2M17 18l2 5-5-2"/>',
     'Livro de Ocorrências':'<path d="M3 5h7a4 4 0 0 1 4 4v12H7a4 4 0 0 0-4 2z"/><path d="M21 5h-7a4 4 0 0 0-4 4v12h7a4 4 0 0 1 4 2z"/><path d="M6 9h4M6 12h4M14 9h4M14 12h4M14 15h3"/>',
     'Quadro de Avisos':'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7h20M5 10h14M5 13h14M5 16h4"/><path d="m13 10 3 6h-6z"/><path d="M13 12.5v1.5M13 15.5h.01"/>',
-    'Configurar Dados do Usuário':'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/><path d="M8.5 12h7"/>'
+    'Configurar Dados do Usuário':'<circle cx="9" cy="8" r="3"/><path d="M4 18c1-4 9-4 10 0"/><circle cx="18" cy="17" r="3"/><path d="M18 12v2M18 20v2M13 17h2M21 17h2"/>'
   };
 
   const ico=name=>`<svg viewBox="0 0 24 24" aria-hidden="true">${iconPaths[name]||iconPaths.home}</svg>`;
   const moduleIco=label=>`<svg viewBox="0 0 24 24" aria-hidden="true">${modulePaths[label]||iconPaths.home}</svg>`;
 
   function residentActive(){
-    try{return document.body.classList.contains('resident-mode') && currentUser==='morador'}catch(e){return document.body.classList.contains('resident-mode')}
+    try{return document.body.classList.contains('resident-mode') && currentUser==='morador';}
+    catch(e){return document.body.classList.contains('resident-mode');}
   }
-
-  function isMobile(){ return window.matchMedia('(max-width:760px)').matches; }
+  function isMobile(){return window.matchMedia('(max-width:760px)').matches;}
 
   function toggleResidentMenu(){
     const sidebar=document.getElementById('sidebar');
     if(!sidebar)return;
     if(isMobile()) sidebar.classList.toggle('open');
     else document.body.classList.toggle('sidebar-expanded');
-    polishHeader(true);
+    updateMenuButton();
   }
 
-  function polishHeader(force){
+  function updateMenuButton(){
+    const btn=document.querySelector('.resident-menu-action');
+    if(!btn)return;
+    const expanded=!isMobile() && document.body.classList.contains('sidebar-expanded');
+    btn.dataset.tip=expanded?'Recolher menu':'Expandir menu';
+    btn.setAttribute('aria-label',expanded?'Recolher menu':'Expandir menu');
+    btn.innerHTML=ico(expanded?'close':'menu');
+  }
+
+  function ensureHeader(){
     if(!residentActive())return;
     const actions=document.querySelector('.topbar-actions');
     if(!actions)return;
@@ -50,19 +58,21 @@
     if(!wrap){
       wrap=document.createElement('div');
       wrap.className='resident-premium-actions';
+      wrap.innerHTML=`
+        <button type="button" class="resident-premium-action resident-menu-action" data-tip="Expandir menu" aria-label="Expandir menu">${ico('menu')}</button>
+        <button type="button" class="resident-premium-action resident-notifications-action" data-tip="Notificações" aria-label="Notificações">${ico('bell')}<span class="action-badge">3</span></button>
+        <button type="button" class="resident-premium-action resident-home-action" data-tip="Início" aria-label="Voltar ao início">${ico('home')}</button>
+        <button type="button" class="resident-premium-action resident-logout-action" data-tip="Sair" aria-label="Sair da plataforma">${ico('logout')}</button>`;
       actions.appendChild(wrap);
+      wrap.querySelector('.resident-menu-action').addEventListener('click',toggleResidentMenu);
+      wrap.querySelector('.resident-notifications-action').addEventListener('click',()=>{if(typeof toast==='function')toast('Você tem 3 notificações novas');});
+      wrap.querySelector('.resident-home-action').addEventListener('click',()=>{if(typeof openPage==='function')openPage('dashboard');});
+      wrap.querySelector('.resident-logout-action').addEventListener('click',()=>{
+        const logout=document.getElementById('logoutBtn');
+        if(logout)logout.click();
+      });
     }
-    const expanded=document.body.classList.contains('sidebar-expanded');
-    wrap.innerHTML=`
-      <button class="resident-premium-action resident-menu-action" data-tip="${expanded?'Recolher menu':'Expandir menu'}" aria-label="${expanded?'Recolher menu':'Expandir menu'}">${ico(expanded?'close':'menu')}</button>
-      <button class="resident-premium-action" data-tip="Notificações" aria-label="Notificações">${ico('bell')}<span class="action-badge">3</span></button>
-      <button class="resident-premium-action" data-tip="Início" aria-label="Voltar ao início">${ico('home')}</button>
-      <button class="resident-premium-action" data-tip="Sair" aria-label="Sair da plataforma">${ico('logout')}</button>`;
-    const btns=wrap.querySelectorAll('button');
-    btns[0].onclick=toggleResidentMenu;
-    btns[1].onclick=()=>{ if(typeof toast==='function')toast('Você tem 3 notificações novas'); };
-    btns[2].onclick=()=>{ if(typeof openPage==='function')openPage('dashboard'); };
-    btns[3].onclick=()=>document.getElementById('logoutBtn')?.click();
+    updateMenuButton();
   }
 
   function replaceResidentIcons(){
@@ -72,40 +82,46 @@
       if(!label)return;
       btn.title=label;
       const icon=btn.querySelector('span:first-child');
-      if(icon) icon.innerHTML=moduleIco(label);
+      if(icon && icon.dataset.imoIcon!==label){
+        icon.innerHTML=moduleIco(label);
+        icon.dataset.imoIcon=label;
+      }
     });
     document.querySelectorAll('.resident-tile').forEach(tile=>{
       const label=tile.querySelector('strong')?.textContent?.trim();
       const box=tile.querySelector('.ri');
-      if(label&&box) box.innerHTML=moduleIco(label);
+      if(label && box && box.dataset.imoIcon!==label){
+        box.innerHTML=moduleIco(label);
+        box.dataset.imoIcon=label;
+      }
     });
   }
 
   function ensureHomeMetrics(){
     if(!residentActive())return;
     const home=document.querySelector('.resident-home');
-    if(!home || home.querySelector('.resident-metrics'))return;
+    if(!home)return;
     const launcher=home.querySelector('.resident-launcher');
     if(!launcher)return;
-    const metrics=document.createElement('section');
-    metrics.className='resident-metrics';
-    metrics.innerHTML=`
-      <article><span class="metric-icon">⌂</span><em>Bloco 1</em><strong>55</strong><small>Sua unidade</small></article>
-      <article><span class="metric-icon">✓</span><em>94%</em><strong>18</strong><small>Garantias vigentes</small></article>
-      <article><span class="metric-icon">◉</span><em>Atualizado</em><strong>1</strong><small>Chamado em aberto</small></article>
-      <article><span class="metric-icon">＋</span><em>Hoje</em><strong>3</strong><small>Novos avisos</small></article>`;
-    launcher.parentNode.insertBefore(metrics,launcher);
 
-    const shell=document.createElement('section');
-    shell.className='resident-shortcuts-shell';
-    shell.innerHTML='<div class="shortcuts-title"><b>Atalhos do imóvel</b><span>arraste para navegar →</span></div>';
-    launcher.parentNode.insertBefore(shell,launcher);
-    shell.appendChild(launcher);
-  }
+    if(!home.querySelector('.resident-metrics')){
+      const metrics=document.createElement('section');
+      metrics.className='resident-metrics';
+      metrics.innerHTML=`
+        <article><span class="metric-icon">⌂</span><em>Bloco 1</em><strong>55</strong><small>Sua unidade</small></article>
+        <article><span class="metric-icon">✓</span><em>94%</em><strong>18</strong><small>Garantias vigentes</small></article>
+        <article><span class="metric-icon">◉</span><em>Atualizado</em><strong>1</strong><small>Chamado em aberto</small></article>
+        <article><span class="metric-icon">＋</span><em>Hoje</em><strong>3</strong><small>Novos avisos</small></article>`;
+      launcher.parentNode.insertBefore(metrics,launcher);
+    }
 
-  function polishSidebar(){
-    if(!residentActive())return;
-    replaceResidentIcons();
+    if(!launcher.closest('.resident-shortcuts-shell')){
+      const shell=document.createElement('section');
+      shell.className='resident-shortcuts-shell';
+      shell.innerHTML='<div class="shortcuts-title"><b>Atalhos do imóvel</b><span>arraste para navegar →</span></div>';
+      launcher.parentNode.insertBefore(shell,launcher);
+      shell.appendChild(launcher);
+    }
   }
 
   function ensureFab(){
@@ -118,27 +134,56 @@
     }
     if(existing)return;
     const fab=document.createElement('button');
+    fab.type='button';
     fab.className='resident-ticket-fab';
     fab.setAttribute('aria-label','Abertura de chamado');
     fab.innerHTML=`<span class="fab-symbol">${ico('ticket')}</span><span class="fab-copy"><span>Abertura de chamado</span><small>Assistência técnica</small></span>`;
-    fab.onclick=()=>{
+    fab.addEventListener('click',()=>{
       if(typeof openPage==='function')openPage('assistencia');
-      setTimeout(()=>{ if(typeof toast==='function')toast('Área de abertura de chamado pronta para uso'); },100);
-    };
+      setTimeout(()=>{if(typeof toast==='function')toast('Área de abertura de chamado pronta para uso');},100);
+    });
     document.body.appendChild(fab);
   }
 
-  function apply(){
-    polishHeader();
-    polishSidebar();
+  function applyResidentPolish(){
+    if(!residentActive()){
+      ensureFab();
+      return;
+    }
+    ensureHeader();
+    replaceResidentIcons();
     ensureHomeMetrics();
     ensureFab();
   }
 
-  const obs=new MutationObserver(()=>requestAnimationFrame(apply));
-  obs.observe(document.body,{attributes:true,attributeFilter:['class'],childList:true,subtree:true});
-  document.addEventListener('click',()=>setTimeout(apply,30),true);
-  window.addEventListener('resize',()=>{ if(isMobile())document.body.classList.remove('sidebar-expanded'); setTimeout(apply,20); });
-  window.addEventListener('load',()=>setTimeout(apply,60));
-  setTimeout(apply,100);
+  /* Hook navigation once instead of observing the whole DOM. This prevents the
+     previous mutation loop that could replace buttons while the user clicked. */
+  const existingOpenPage=window.openPage;
+  if(typeof existingOpenPage==='function'){
+    const stableOpenPage=function(page){
+      const result=existingOpenPage(page);
+      requestAnimationFrame(()=>applyResidentPolish());
+      return result;
+    };
+    window.openPage=stableOpenPage;
+    try{openPage=stableOpenPage;}catch(e){}
+  }
+
+  const existingStartApp=window.startApp;
+  if(typeof existingStartApp==='function'){
+    const stableStartApp=function(username){
+      const result=existingStartApp(username);
+      setTimeout(applyResidentPolish,60);
+      return result;
+    };
+    window.startApp=stableStartApp;
+    try{startApp=stableStartApp;}catch(e){}
+  }
+
+  window.addEventListener('resize',()=>{
+    if(isMobile())document.body.classList.remove('sidebar-expanded');
+    updateMenuButton();
+  });
+  window.addEventListener('load',()=>setTimeout(applyResidentPolish,100));
+  setTimeout(applyResidentPolish,150);
 })();
