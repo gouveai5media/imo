@@ -8,7 +8,6 @@
     'Assistência Técnica':'assistencia',
     'Planos de Reforma':'reformas',
     'Agendamento de Espaços':'reservas',
-    'Plano de Manutenções':'rotinas',
     'Gestão das Garantias':'garantias',
     'Livro de Ocorrências':'ocorrencias',
     'Quadro de Avisos':'avisos',
@@ -20,20 +19,38 @@
     catch(e){return document.body.classList.contains('resident-mode');}
   }
 
+  function cleanResidentMaintenance(){
+    if(!residentActive())return;
+
+    document.querySelectorAll('#navMenu .nav-item[data-page="rotinas"], .imo-shortcut[data-page="rotinas"], .resident-tile[data-page="rotinas"]').forEach(el=>el.remove());
+
+    document.querySelectorAll('.imo-panel-head h3').forEach(h=>{
+      if(h.textContent.trim()==='Garantias e manutenção')h.textContent='Garantias da unidade';
+    });
+
+    document.querySelectorAll('.imo-warranty th').forEach(th=>{
+      if(th.textContent.trim()==='Progresso')th.textContent='Vigência';
+    });
+  }
+
   function navigate(page){
     if(!page)return;
+    if(residentActive() && page==='rotinas'){
+      if(typeof toast==='function')toast('Manutenções não fazem parte da área do morador.');
+      page='dashboard';
+    }
     const fn=window.openPage;
     if(typeof fn==='function'){
       fn(page);
       const sidebar=document.getElementById('sidebar');
       if(window.matchMedia('(max-width:760px)').matches) sidebar?.classList.remove('open');
+      requestAnimationFrame(cleanResidentMaintenance);
     }
   }
 
   function requestLogout(){
     const core=document.getElementById('logoutBtn');
     if(core){core.click();return;}
-    /* Fallback only if the original control is unavailable. */
     try{localStorage.removeItem('imo_session');sessionStorage.removeItem('imo_resident_unit');currentUser=null;}catch(e){}
     document.body.classList.remove('resident-mode','sidebar-expanded');
     document.getElementById('appView')?.classList.add('hidden');
@@ -78,7 +95,6 @@
     },true);
   }
 
-  /* Header/FAB actions are delegated at document level because they are created dynamically. */
   document.addEventListener('click',function(e){
     if(!residentActive())return;
 
@@ -106,9 +122,25 @@
     }
   },true);
 
+  let cleaningScheduled=false;
+  function scheduleClean(){
+    if(cleaningScheduled)return;
+    cleaningScheduled=true;
+    requestAnimationFrame(()=>{
+      cleaningScheduled=false;
+      cleanResidentMaintenance();
+    });
+  }
+
+  if(nav)new MutationObserver(scheduleClean).observe(nav,{childList:true,subtree:true});
+  if(content)new MutationObserver(scheduleClean).observe(content,{childList:true,subtree:true});
+
   document.addEventListener('keydown',function(e){
     if(!residentActive() || e.key!=='Escape')return;
     document.getElementById('sidebar')?.classList.remove('open');
     document.body.classList.remove('sidebar-expanded');
   });
+
+  window.addEventListener('load',()=>setTimeout(cleanResidentMaintenance,80));
+  setTimeout(cleanResidentMaintenance,120);
 })();
