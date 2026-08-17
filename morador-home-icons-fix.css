@@ -1,0 +1,53 @@
+/* IMO — correção final dos ícones da faixa de atalhos da home */
+body.resident-mode .imo-shortcuts .imo-shortcut > .imo-shortcut-icon{
+  display:grid!important;
+  place-items:center!important;
+  width:54px!important;
+  height:54px!important;
+  min-height:54px!important;
+  margin:0 auto 8px!important;
+  color:#2b96c5!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+body.resident-mode .imo-shortcuts .imo-shortcut > .imo-shortcut-icon svg{
+  display:block!important;
+  width:42px!important;
+  height:42px!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.55!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+body.resident-mode .imo-shortcuts .imo-shortcut > .shortcut-dot{
+  display:block!important;
+  flex:0 0 5px!important;
+  width:5px!important;
+  height:5px!important;
+  min-height:5px!important;
+  margin-top:5px!important;
+  border-radius:50%!important;
+  background:#0f90c7!important;
+}
+body.resident-mode .imo-shortcuts .imo-shortcut{
+  min-height:124px!important;
+  padding-top:9px!important;
+}
+body.resident-mode .imo-shortcuts .imo-shortcut strong{
+  display:block!important;
+  min-height:24px!important;
+}
+@media(max-width:760px){
+  body.resident-mode .imo-shortcuts .imo-shortcut > .imo-shortcut-icon{
+    width:50px!important;
+    height:50px!important;
+    min-height:50px!important;
+  }
+  body.resident-mode .imo-shortcuts .imo-shortcut > .imo-shortcut-icon svg{
+    width:38px!important;
+    height:38px!important;
+  }
+}
