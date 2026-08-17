@@ -40,6 +40,14 @@ body.resident-mode .imo-shortcuts .imo-shortcut strong{
   display:block!important;
   min-height:24px!important;
 }
+
+/* Regra funcional: manutenção da unidade não pertence à área do morador. */
+body.resident-mode #navMenu .nav-item[data-page="rotinas"],
+body.resident-mode .imo-shortcut[data-page="rotinas"],
+body.resident-mode .resident-tile[data-page="rotinas"]{
+  display:none!important;
+}
+
 @media(max-width:760px){
   body.resident-mode .imo-shortcuts .imo-shortcut > .imo-shortcut-icon{
     width:50px!important;
