@@ -1,0 +1,105 @@
+/* IMO Morador — presentation stability layer */
+body.resident-mode{overflow-x:hidden}
+body.resident-mode .app-shell{min-height:100dvh}
+body.resident-mode .main-content{min-width:0;overflow-x:hidden}
+
+/* Keep the resident menu fully usable on any screen height. */
+body.resident-mode .sidebar{
+  height:100vh!important;
+  height:100dvh!important;
+  max-height:100dvh!important;
+  overflow:hidden!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+body.resident-mode .sidebar nav#navMenu{
+  display:flex!important;
+  flex:1 1 auto!important;
+  min-height:0!important;
+  margin-top:86px!important;
+  padding:6px 3px 14px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,.48) rgba(255,255,255,.08);
+}
+body.resident-mode .sidebar nav#navMenu::-webkit-scrollbar{width:5px}
+body.resident-mode .sidebar nav#navMenu::-webkit-scrollbar-track{background:rgba(255,255,255,.06);border-radius:999px}
+body.resident-mode .sidebar nav#navMenu::-webkit-scrollbar-thumb{background:rgba(255,255,255,.48);border-radius:999px}
+body.resident-mode .sidebar nav#navMenu .nav-item{
+  flex:0 0 56px!important;
+  min-height:56px!important;
+  pointer-events:auto!important;
+}
+body.resident-mode .sidebar-footer{
+  flex:0 0 auto!important;
+  margin-top:6px!important;
+  padding-top:8px!important;
+  padding-bottom:max(2px,env(safe-area-inset-bottom))!important;
+  position:relative;
+  z-index:2;
+}
+body.resident-mode .sidebar-footer .nav-item{pointer-events:auto!important}
+
+/* Expanded desktop menu keeps the same scroll behavior. */
+body.resident-mode.sidebar-expanded .sidebar nav#navMenu{
+  margin-top:86px!important;
+  padding-right:5px!important;
+}
+body.resident-mode.sidebar-expanded .sidebar .nav-item{
+  flex:0 0 54px!important;
+  min-height:54px!important;
+}
+
+/* Home shortcuts remain horizontally swipeable without affecting page scroll. */
+body.resident-mode .resident-shortcuts-shell{min-width:0;overflow:hidden}
+body.resident-mode .resident-launcher{
+  width:100%;
+  max-width:100%;
+  touch-action:pan-x;
+  overscroll-behavior-x:contain;
+  scroll-behavior:smooth;
+}
+body.resident-mode .resident-tile{pointer-events:auto!important;user-select:none}
+body.resident-mode .resident-ticket-fab,
+body.resident-mode .resident-premium-action,
+body.resident-mode .resident-top-unit{pointer-events:auto!important}
+
+/* Internal tables never break the responsive shell. */
+body.resident-mode .resident-table-card{max-width:100%;overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+body.resident-mode .data-table{min-width:720px}
+
+@media(max-height:760px) and (min-width:761px){
+  body.resident-mode .sidebar nav#navMenu,
+  body.resident-mode.sidebar-expanded .sidebar nav#navMenu{margin-top:54px!important}
+  body.resident-mode .sidebar nav#navMenu .nav-item{flex-basis:52px!important;min-height:52px!important}
+}
+
+@media(max-width:760px){
+  body.resident-mode .sidebar{
+    position:fixed!important;
+    inset:0 auto 0 0!important;
+    width:min(310px,88vw)!important;
+    height:100dvh!important;
+    max-height:100dvh!important;
+    padding:16px 12px!important;
+    overflow:hidden!important;
+    transform:translateX(-105%);
+    transition:transform .24s ease!important;
+    box-shadow:18px 0 45px rgba(3,45,67,.28)!important;
+  }
+  body.resident-mode .sidebar.open{transform:translateX(0)!important}
+  body.resident-mode .sidebar nav#navMenu{
+    margin-top:12px!important;
+    padding:4px 2px 12px!important;
+  }
+  body.resident-mode .sidebar nav#navMenu .nav-item{
+    flex:0 0 52px!important;
+    min-height:52px!important;
+  }
+  body.resident-mode .sidebar-footer{padding-bottom:max(8px,env(safe-area-inset-bottom))!important}
+  body.resident-mode .resident-table-card{margin-left:-2px;margin-right:-2px}
+}
