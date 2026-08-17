@@ -1,0 +1,4 @@
+/* IMO Morador — regra funcional: morador não possui manutenção da unidade */
+body.resident-mode #navMenu .nav-item[data-page="rotinas"],
+body.resident-mode .imo-shortcut[data-page="rotinas"],
+body.resident-mode .resident-tile[data-page="rotinas"]{display:none!important}
