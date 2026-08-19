@@ -3,7 +3,7 @@
   if(window.__IMO_OFFICIAL_LOGO__) return;
   window.__IMO_OFFICIAL_LOGO__=true;
 
-  const LOGO='logo-oficial.svg?v=20260819-0914';
+  const LOGO='logo-oficial.svg?v=20260819-0928';
 
   const style=document.createElement('style');
   style.textContent=`
@@ -38,8 +38,9 @@
   }
 
   function applyTo(el){
-    if(!el || el.dataset.officialImoLogo==='1') return;
-    el.dataset.officialImoLogo='1';
+    if(!el) return;
+    const current=el.querySelector(':scope > .imo-official-logo');
+    if(current && current.getAttribute('src')===LOGO) return;
     el.classList.add('imo-logo-applied');
     el.replaceChildren(img());
   }
@@ -48,15 +49,14 @@
     root.querySelectorAll?.('.brand-mark,.resident-top-logo').forEach(applyTo);
   }
 
-  applyAll();
-  window.addEventListener('load',()=>applyAll());
+  let scheduled=false;
+  function scheduleApply(){
+    if(scheduled) return;
+    scheduled=true;
+    requestAnimationFrame(()=>{scheduled=false;applyAll();});
+  }
 
-  const observer=new MutationObserver(mutations=>{
-    let shouldApply=false;
-    for(const m of mutations){
-      if(m.addedNodes.length){shouldApply=true;break;}
-    }
-    if(shouldApply) requestAnimationFrame(()=>applyAll());
-  });
-  observer.observe(document.body,{childList:true,subtree:true});
+  applyAll();
+  window.addEventListener('load',()=>{applyAll();setTimeout(applyAll,200);});
+  new MutationObserver(scheduleApply).observe(document.body,{childList:true,subtree:true});
 })();
