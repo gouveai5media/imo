@@ -5,6 +5,7 @@ body.resident-mode .resident-top-unit small strong{font-size:12px!important;line
 body.resident-mode .imo-shortcut[data-page="assistencia"] .imo-shortcut-icon img{display:block!important;width:46px!important;height:40px!important;object-fit:contain!important;filter:none!important;opacity:1!important}
 body.resident-mode #navMenu .nav-item[data-page="assistencia"] span:first-child img{display:block!important;width:31px!important;height:27px!important;object-fit:contain!important;filter:brightness(0) invert(1)!important;opacity:1!important}
 body.resident-mode #navMenu .nav-item[data-page="assistencia"].active span:first-child img{filter:none!important}
+body.resident-mode .imo-open-ticket .imo-assistance-ticket-icon{display:block!important;width:18px!important;height:16px!important;object-fit:contain!important;filter:brightness(0) invert(1)!important;opacity:1!important}
 body.resident-mode .imo-metrics.imo-client-metrics-reviewed{grid-template-columns:repeat(3,minmax(0,1fr))!important}
 body.resident-mode .imo-bottom-grid.imo-single-activity{grid-template-columns:1fr!important}
 body.resident-mode .imo-bottom-grid.imo-single-activity>.imo-panel{min-height:180px}
