@@ -1,4 +1,4 @@
-/* IMO — Configurações > Identidade Visual */
+/* IMO — Configurações > Identidade Visual e ícones das ferramentas */
 (function(){
   if(window.__IMO_ADMIN_BRANDING__) return;
   window.__IMO_ADMIN_BRANDING__=true;
@@ -7,9 +7,12 @@
   let pendingFavicon='';
   let logoChanged=false;
   let faviconChanged=false;
+  let pendingTools={};
+  let changedTools=new Set();
 
   function isAdmin(){try{return currentUser==='admin';}catch(e){return false;}}
   function branding(){return window.imoBranding||null;}
+  function toolIcons(){return window.imoToolIcons||null;}
   function content(){return document.getElementById('content');}
 
   function prepare(){
@@ -24,6 +27,24 @@
 
   function currentLogo(){return branding()?.getLogo?.()||'logo-oficial.svg';}
   function currentFavicon(){return branding()?.getFavicon?.()||currentLogo();}
+  function toastMsg(msg){if(typeof toast==='function')toast(msg);}
+  function setSaveEnabled(){const b=document.getElementById('brandSave');if(b)b.disabled=!(logoChanged||faviconChanged||changedTools.size);}
+
+  function toolCards(){
+    const api=toolIcons();
+    if(!api) return '<div class="brand-file-note"><span>!</span><p>Gerenciador de ícones não carregado.</p></div>';
+    return api.modules.map(m=>{
+      const custom=api.isCustom(m.id);
+      return `<article class="tool-brand-card" data-tool-card="${m.id}">
+        <div class="tool-icon-preview"><img id="toolPreview-${m.id}" src="${api.get(m.id)}" alt="${m.label}"></div>
+        <div class="tool-card-copy"><strong>${m.label}</strong><span class="tool-origin" id="toolOrigin-${m.id}">${custom?'Personalizado':'Ícone padrão'}</span></div>
+        <div class="tool-card-actions">
+          <label class="tool-upload-mini" title="Trocar ícone">↑<input type="file" id="toolInput-${m.id}" data-tool-input="${m.id}" accept="image/png,image/svg+xml,image/webp" hidden></label>
+          <button type="button" class="tool-reset-mini" data-tool-reset="${m.id}" title="Restaurar ícone padrão">↺</button>
+        </div>
+      </article>`;
+    }).join('');
+  }
 
   function render(){
     if(!isAdmin()) return;
@@ -31,11 +52,16 @@
     pendingLogo=currentLogo();
     pendingFavicon=currentFavicon();
     logoChanged=false;faviconChanged=false;
+    changedTools=new Set();
+    pendingTools={};
+    const api=toolIcons();
+    api?.modules.forEach(m=>pendingTools[m.id]=api.get(m.id));
+
     const c=content();if(!c)return;
     c.className='branding-page';
     c.innerHTML=`
       <section class="branding-hero">
-        <div><span class="branding-pill">CONFIGURAÇÕES DA PLATAFORMA</span><h1>Identidade Visual</h1><p>Gerencie a marca exibida em toda a experiência IMO. Uma alteração salva aqui é aplicada automaticamente no login e nos quatro níveis de acesso.</p></div>
+        <div><span class="branding-pill">CONFIGURAÇÕES DA PLATAFORMA</span><h1>Identidade Visual</h1><p>Gerencie o logo da IMO e os ícones das ferramentas. As alterações são aplicadas automaticamente em todos os ambientes compatíveis da plataforma.</p></div>
         <span class="brand-demo-badge"><i></i> Ambiente de demonstração</span>
       </section>
 
@@ -52,7 +78,7 @@
             <label class="brand-upload-btn">↑ Selecionar novo logo<input id="brandLogoInput" type="file" accept="image/png,image/svg+xml,image/webp" hidden></label>
             <button type="button" class="brand-reset-btn" id="brandResetLogo">Restaurar logo original IMO</button>
           </div>
-          <div class="brand-file-note"><span>i</span><p><b>Formatos aceitos:</b> PNG, SVG ou WebP, com até 1,5 MB. O sistema nunca estica ou deforma o arquivo; apenas redimensiona mantendo a proporção.</p></div>
+          <div class="brand-file-note"><span>i</span><p><b>Formatos aceitos:</b> PNG, SVG ou WebP, com até 1,5 MB. O sistema mantém a proporção original da marca.</p></div>
         </article>
 
         <article class="branding-card">
@@ -62,8 +88,14 @@
             <label class="brand-upload-btn">↑ Selecionar favicon<input id="brandFaviconInput" type="file" accept="image/png,image/svg+xml,image/x-icon,image/vnd.microsoft.icon" hidden></label>
             <button type="button" class="brand-reset-btn" id="brandResetFavicon">Usar logo principal</button>
           </div>
-          <div class="brand-file-note"><span>i</span><p>Recomendamos uma arte quadrada. Na versão real, o arquivo será armazenado no Supabase Storage e vinculado à configuração global da plataforma.</p></div>
+          <div class="brand-file-note"><span>i</span><p>Recomendamos uma arte quadrada. Na versão real, o arquivo será armazenado no Supabase Storage.</p></div>
         </article>
+      </section>
+
+      <section class="branding-card branding-tools-section">
+        <div class="branding-card-head tools-head"><div><h3>Ícones das ferramentas</h3><p>Troque individualmente os ícones dos módulos exibidos no Acesso Rápido e no menu lateral. O nome e a função da ferramenta não são alterados.</p></div><button type="button" class="brand-reset-btn tools-reset-all" id="toolsResetAll">Restaurar todos os ícones</button></div>
+        <div class="tools-grid">${toolCards()}</div>
+        <div class="brand-file-note"><span>i</span><p><b>Recomendação:</b> use SVG com fundo transparente para manter o padrão visual. PNG e WebP também são aceitos. Na demonstração, cada ícone deve ter no máximo 500 KB.</p></div>
       </section>
 
       <div class="branding-actions"><button type="button" class="brand-reset-btn" id="brandDiscard">Descartar alterações</button><button type="button" class="brand-save-btn" id="brandSave" disabled>Salvar identidade visual</button></div>`;
@@ -71,18 +103,15 @@
     wire();
   }
 
-  function toastMsg(msg){if(typeof toast==='function')toast(msg);}
-  function setSaveEnabled(){const b=document.getElementById('brandSave');if(b)b.disabled=!(logoChanged||faviconChanged);}
-
-  function readImage(file,kind){
+  function readImage(file,kind,id){
     if(!file)return;
     const allowedLogo=['image/png','image/svg+xml','image/webp'];
     const allowedFav=['image/png','image/svg+xml','image/x-icon','image/vnd.microsoft.icon'];
-    const allowed=kind==='logo'?allowedLogo:allowedFav;
-    if(!allowed.includes(file.type)){
-      toastMsg(kind==='logo'?'Use PNG, SVG ou WebP.':'Use PNG, SVG ou ICO.');return;
-    }
-    if(file.size>1.5*1024*1024){toastMsg('O arquivo deve ter no máximo 1,5 MB.');return;}
+    const allowedTool=['image/png','image/svg+xml','image/webp'];
+    const allowed=kind==='logo'?allowedLogo:kind==='favicon'?allowedFav:allowedTool;
+    if(!allowed.includes(file.type)){toastMsg(kind==='favicon'?'Use PNG, SVG ou ICO.':'Use PNG, SVG ou WebP.');return;}
+    const limit=kind==='tool'?500*1024:1.5*1024*1024;
+    if(file.size>limit){toastMsg(kind==='tool'?'O ícone deve ter no máximo 500 KB.':'O arquivo deve ter no máximo 1,5 MB.');return;}
     const reader=new FileReader();
     reader.onload=()=>{
       const data=String(reader.result||'');
@@ -90,9 +119,13 @@
         pendingLogo=data;logoChanged=true;
         const p=document.getElementById('brandLogoPreview');if(p)p.src=data;
         if(!faviconChanged){pendingFavicon=data;const f=document.getElementById('brandFaviconPreview');if(f)f.src=data;}
-      }else{
+      }else if(kind==='favicon'){
         pendingFavicon=data;faviconChanged=true;
         const p=document.getElementById('brandFaviconPreview');if(p)p.src=data;
+      }else if(id){
+        pendingTools[id]=data;changedTools.add(id);
+        const p=document.getElementById(`toolPreview-${id}`);if(p)p.src=data;
+        const o=document.getElementById(`toolOrigin-${id}`);if(o){o.textContent='Alterado • não salvo';o.classList.add('pending');}
       }
       setSaveEnabled();
     };
@@ -102,6 +135,25 @@
   function wire(){
     document.getElementById('brandLogoInput')?.addEventListener('change',e=>readImage(e.target.files?.[0],'logo'));
     document.getElementById('brandFaviconInput')?.addEventListener('change',e=>readImage(e.target.files?.[0],'favicon'));
+
+    document.querySelectorAll('[data-tool-input]').forEach(input=>input.addEventListener('change',e=>readImage(e.target.files?.[0],'tool',input.dataset.toolInput)));
+    document.querySelectorAll('[data-tool-reset]').forEach(btn=>btn.addEventListener('click',()=>{
+      const id=btn.dataset.toolReset;const api=toolIcons();if(!id||!api)return;
+      pendingTools[id]=api.getDefault(id);changedTools.add(id);
+      const p=document.getElementById(`toolPreview-${id}`);if(p)p.src=pendingTools[id];
+      const o=document.getElementById(`toolOrigin-${id}`);if(o){o.textContent='Padrão • não salvo';o.classList.add('pending');}
+      setSaveEnabled();
+    }));
+
+    document.getElementById('toolsResetAll')?.addEventListener('click',()=>{
+      const api=toolIcons();if(!api)return;
+      api.modules.forEach(m=>{
+        pendingTools[m.id]=api.getDefault(m.id);changedTools.add(m.id);
+        const p=document.getElementById(`toolPreview-${m.id}`);if(p)p.src=pendingTools[m.id];
+        const o=document.getElementById(`toolOrigin-${m.id}`);if(o){o.textContent='Padrão • não salvo';o.classList.add('pending');}
+      });
+      setSaveEnabled();
+    });
 
     document.getElementById('brandResetLogo')?.addEventListener('click',()=>{
       pendingLogo=branding()?.defaultLogo||'logo-oficial.svg';logoChanged=true;
@@ -119,19 +171,21 @@
     document.getElementById('brandDiscard')?.addEventListener('click',render);
     document.getElementById('brandSave')?.addEventListener('click',()=>{
       const api=branding();
-      if(!api){toastMsg('Configuração de marca indisponível.');return;}
+      const icons=toolIcons();
       let ok=true;
-      if(logoChanged){
-        if(pendingLogo===api.defaultLogo) api.resetLogo();
-        else ok=api.setLogo(pendingLogo)!==false && ok;
+      if(api){
+        if(logoChanged){if(pendingLogo===api.defaultLogo) api.resetLogo();else ok=api.setLogo(pendingLogo)!==false&&ok;}
+        if(faviconChanged){if(pendingFavicon===pendingLogo||pendingFavicon===api.getLogo()) api.resetFavicon();else ok=api.setFavicon(pendingFavicon)!==false&&ok;}
       }
-      if(faviconChanged){
-        if(pendingFavicon===pendingLogo || pendingFavicon===api.getLogo()) api.resetFavicon();
-        else ok=api.setFavicon(pendingFavicon)!==false && ok;
+      if(icons){
+        changedTools.forEach(id=>{
+          if(pendingTools[id]===icons.getDefault(id)) icons.reset(id);
+          else ok=icons.set(id,pendingTools[id])!==false&&ok;
+        });
       }
-      if(!ok){toastMsg('Não foi possível salvar: o arquivo pode ser grande demais para esta demonstração.');return;}
-      api.apply();
-      toastMsg('Identidade visual atualizada em todos os painéis.');
+      if(!ok){toastMsg('Não foi possível salvar tudo. Reduza o tamanho dos arquivos e tente novamente.');return;}
+      api?.apply?.();icons?.apply?.();
+      toastMsg('Identidade visual e ícones atualizados.');
       render();
     });
   }
