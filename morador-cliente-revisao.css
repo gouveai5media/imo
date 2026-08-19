@@ -1,0 +1,13 @@
+/* IMO — revisão do painel do morador conforme anotações do cliente */
+body.resident-mode .imo-quick-title{margin:0 0 10px;padding:0 4px;font-size:10px;font-weight:800;letter-spacing:.14em;color:#6f8495;text-transform:uppercase}
+body.resident-mode .resident-top-unit small{font-size:9px!important;line-height:1.2!important;color:#738795!important;display:block!important;margin-top:2px!important;white-space:nowrap}
+body.resident-mode .resident-top-unit small strong{font-size:12px!important;line-height:1!important;color:#264052!important;font-weight:800!important;letter-spacing:-.02em}
+body.resident-mode .imo-shortcut[data-page="assistencia"] .imo-shortcut-icon img{display:block!important;width:46px!important;height:40px!important;object-fit:contain!important;filter:none!important;opacity:1!important}
+body.resident-mode #navMenu .nav-item[data-page="assistencia"] span:first-child img{display:block!important;width:31px!important;height:27px!important;object-fit:contain!important;filter:brightness(0) invert(1)!important;opacity:1!important}
+body.resident-mode #navMenu .nav-item[data-page="assistencia"].active span:first-child img{filter:none!important}
+body.resident-mode .imo-metrics.imo-client-metrics-reviewed{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+body.resident-mode .imo-bottom-grid.imo-single-activity{grid-template-columns:1fr!important}
+body.resident-mode .imo-bottom-grid.imo-single-activity>.imo-panel{min-height:180px}
+body.resident-mode .imo-shortcuts-wrap{padding-top:13px!important}
+@media(max-width:900px){body.resident-mode .imo-metrics.imo-client-metrics-reviewed{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:560px){body.resident-mode .imo-metrics.imo-client-metrics-reviewed{grid-template-columns:1fr!important}body.resident-mode .resident-top-unit small{font-size:8px!important}body.resident-mode .resident-top-unit small strong{font-size:10px!important}.imo-quick-title{padding-left:0!important}}
