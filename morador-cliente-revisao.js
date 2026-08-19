@@ -3,7 +3,7 @@
   if(window.__IMO_CLIENT_REVIEW__) return;
   window.__IMO_CLIENT_REVIEW__=true;
 
-  const ASSIST_ICON='icone-assistencia-tecnica-oficial.svg?v=20260819-0925';
+  const ASSIST_ICON='icone-assistencia-tecnica-oficial.svg?v=20260819-0931';
 
   function residentActive(){
     try{return currentUser==='morador' && document.body.classList.contains('resident-mode');}
@@ -45,6 +45,9 @@
 
     const side=document.querySelector('#navMenu .nav-item[data-page="assistencia"] span:first-child');
     if(side && !side.querySelector('img')) side.replaceChildren(assistanceImg());
+
+    const openTicket=document.querySelector('.imo-open-ticket > span:first-child');
+    if(openTicket && !openTicket.querySelector('img')) openTicket.replaceChildren(assistanceImg('imo-assistance-ticket-icon'));
   }
 
   function removeDuplicateUnitCard(){
