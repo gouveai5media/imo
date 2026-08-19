@@ -1,9 +1,11 @@
-/* IMO — aplica o logo oficial enviado pelo cliente sem redesenho */
+/* IMO — identidade visual global configurável pelo Super Admin */
 (function(){
   if(window.__IMO_OFFICIAL_LOGO__) return;
   window.__IMO_OFFICIAL_LOGO__=true;
 
-  const LOGO='logo-oficial.svg?v=20260819-0928';
+  const DEFAULT_LOGO='logo-oficial.svg?v=20260819-0928';
+  const LOGO_KEY='imo_brand_logo';
+  const FAVICON_KEY='imo_brand_favicon';
 
   const style=document.createElement('style');
   style.textContent=`
@@ -26,10 +28,15 @@
   `;
   document.head.appendChild(style);
 
+  function safeGet(key){try{return localStorage.getItem(key)||'';}catch(e){return '';}}
+  function safeSet(key,value){try{value?localStorage.setItem(key,value):localStorage.removeItem(key);return true;}catch(e){return false;}}
+  function getLogo(){return safeGet(LOGO_KEY)||DEFAULT_LOGO;}
+  function getFavicon(){return safeGet(FAVICON_KEY);}
+
   function img(){
     const el=document.createElement('img');
     el.className='imo-official-logo';
-    el.src=LOGO;
+    el.src=getLogo();
     el.alt='IMO - Imóvel em ordem';
     el.width=179;
     el.height=85;
@@ -39,14 +46,24 @@
 
   function applyTo(el){
     if(!el) return;
+    const logo=getLogo();
     const current=el.querySelector(':scope > .imo-official-logo');
-    if(current && current.getAttribute('src')===LOGO) return;
+    if(current && current.getAttribute('src')===logo) return;
     el.classList.add('imo-logo-applied');
     el.replaceChildren(img());
   }
 
+  function applyFavicon(){
+    const src=getFavicon();
+    let link=document.querySelector('link[data-imo-favicon]');
+    if(!src){if(link)link.remove();return;}
+    if(!link){link=document.createElement('link');link.rel='icon';link.dataset.imoFavicon='1';document.head.appendChild(link);}
+    link.href=src;
+  }
+
   function applyAll(root=document){
     root.querySelectorAll?.('.brand-mark,.resident-top-logo').forEach(applyTo);
+    applyFavicon();
   }
 
   let scheduled=false;
@@ -55,6 +72,17 @@
     scheduled=true;
     requestAnimationFrame(()=>{scheduled=false;applyAll();});
   }
+
+  window.imoBranding={
+    defaultLogo:DEFAULT_LOGO,
+    getLogo,
+    getFavicon,
+    setLogo(data){const ok=safeSet(LOGO_KEY,data);applyAll();return ok;},
+    resetLogo(){safeSet(LOGO_KEY,'');applyAll();},
+    setFavicon(data){const ok=safeSet(FAVICON_KEY,data);applyFavicon();return ok;},
+    resetFavicon(){safeSet(FAVICON_KEY,'');applyFavicon();},
+    apply:applyAll
+  };
 
   applyAll();
   window.addEventListener('load',()=>{applyAll();setTimeout(applyAll,200);});
