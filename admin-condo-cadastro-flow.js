@@ -82,4 +82,12 @@
   new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});
   window.addEventListener('load',()=>{refine();setTimeout(refine,120);});
   refine();
+
+  // Carrega a política contratual dos módulos depois de todas as camadas do Super Admin.
+  if(!document.querySelector('script[data-imo-module-defaults]')){
+    const script=document.createElement('script');
+    script.src='admin-condo-module-defaults.js?v=20260821-1004';
+    script.dataset.imoModuleDefaults='1';
+    document.body.appendChild(script);
+  }
 })();
