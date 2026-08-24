@@ -83,4 +83,11 @@
   let scheduled=false;function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;render();});}
   new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});
   window.addEventListener('load',()=>{render();setTimeout(render,150);}); render();
+
+  if(!document.querySelector('script[data-imo-real-condos]')){
+    const script=document.createElement('script');
+    script.src='imo-real-condominiums.js?v=20260824-2043';
+    script.dataset.imoRealCondos='1';
+    document.body.appendChild(script);
+  }
 })();
