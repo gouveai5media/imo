@@ -90,4 +90,19 @@
     script.dataset.imoModuleDefaults='1';
     document.body.appendChild(script);
   }
+
+  // Adaptação funcional do legado: documentos por condomínio, perfil e modo leitura/download.
+  if(!document.querySelector('link[data-imo-legacy-docs]')){
+    const css=document.createElement('link');
+    css.rel='stylesheet';
+    css.href='admin-legacy-documents.css?v=20260825-1625';
+    css.dataset.imoLegacyDocs='1';
+    document.head.appendChild(css);
+  }
+  if(!document.querySelector('script[data-imo-legacy-docs]')){
+    const script=document.createElement('script');
+    script.src='admin-legacy-documents.js?v=20260825-1625';
+    script.dataset.imoLegacyDocs='1';
+    document.body.appendChild(script);
+  }
 })();
