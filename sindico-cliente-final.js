@@ -21,6 +21,7 @@
 
   function ensureShell(){
     if(!active())return;
+    document.body.classList.remove('resident-mode');
     document.body.classList.add('sindico-mode');
     const top=document.querySelector('.topbar'); if(!top)return;
     if(!top.querySelector('.sindico-top-condo')){
@@ -54,9 +55,39 @@
   }
 
   const priorStart=window.startApp;
-  if(typeof priorStart==='function')window.startApp=function(username){document.body.classList.toggle('sindico-mode',username==='sindico');const r=priorStart.apply(this,arguments);if(username==='sindico'){adjustNav();if(typeof buildNav==='function')buildNav();setTimeout(renderHome,0);}return r;};
+  if(typeof priorStart==='function'){
+    window.startApp=function(username){
+      document.body.classList.remove('sindico-mode','resident-mode');
+      const r=priorStart.apply(this,arguments);
+      if(username==='sindico'){
+        document.body.classList.remove('resident-mode');
+        document.body.classList.add('sindico-mode');
+        adjustNav();
+        if(typeof buildNav==='function')buildNav();
+        setTimeout(()=>{ensureShell();renderHome();},0);
+      }
+      return r;
+    };
+    try{startApp=window.startApp;}catch(e){}
+  }
   const priorOpen=window.openPage;
-  if(typeof priorOpen==='function')window.openPage=function(page){if(active()&&page==='dashboard'){try{currentPage='dashboard';}catch(e){}document.querySelectorAll('.nav-item[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page==='dashboard'));document.getElementById('pageTitle')&&(document.getElementById('pageTitle').textContent='Início');document.getElementById('breadcrumb')&&(document.getElementById('breadcrumb').textContent='IMO / Síndico / Início');document.getElementById('sidebar')?.classList.remove('open');renderHome();return;}return priorOpen.apply(this,arguments);};
-  function boot(){if(active()){adjustNav();if(typeof buildNav==='function')buildNav();renderHome();}}
+  if(typeof priorOpen==='function'){
+    window.openPage=function(page){
+      if(active()&&page==='dashboard'){
+        try{currentPage='dashboard';}catch(e){}
+        document.body.classList.remove('resident-mode');
+        document.body.classList.add('sindico-mode');
+        document.querySelectorAll('.nav-item[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page==='dashboard'));
+        document.getElementById('pageTitle')&&(document.getElementById('pageTitle').textContent='Início');
+        document.getElementById('breadcrumb')&&(document.getElementById('breadcrumb').textContent='IMO / Síndico / Início');
+        document.getElementById('sidebar')?.classList.remove('open');
+        renderHome();
+        return;
+      }
+      return priorOpen.apply(this,arguments);
+    };
+    try{openPage=window.openPage;}catch(e){}
+  }
+  function boot(){if(active()){document.body.classList.remove('resident-mode');document.body.classList.add('sindico-mode');adjustNav();if(typeof buildNav==='function')buildNav();ensureShell();renderHome();}}
   window.addEventListener('load',()=>setTimeout(boot,150));setTimeout(boot,0);
 })();
