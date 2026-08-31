@@ -111,7 +111,7 @@
         ${section(8,'Configurações operacionais','Preferências iniciais do condomínio.',
           field('Sistema de Assistência','<select id="regAssistance"><option>Sistema IMO</option><option>Externo</option><option>Não utilizado</option></select>')+
           field('Limite da incorporadora (MB)','<input id="regUploadLimit" type="number" value="300">')+
-          '<label class="imo-reg-check span2"><input id="regMaintEmail" type="checkbox" checked><span>Enviar e-mails do plano de manutenção</span></label>'+
+          '<label class="imo-reg-check span2"><input id="regMaintEmail" type="checkbox" checked><span>Enviar e-mails do plano de manutenção</span></label>'+\n          '<label class="imo-reg-check span2"><input id="regAutoResidentApproval" type="checkbox"><span><b>Autorizar cadastro automático de moradores</b><small>Quando ativado, o morador se cadastra e é liberado diretamente, sem aprovação manual do síndico.</small></span></label>'+
           '<div class="imo-reg-access span2"><b>Regras de acesso a documentos</b><p>Morador/proprietário vê somente documentos do condomínio/unidade vinculados ao perfil; Síndico vê os documentos do condomínio permitidos ao síndico; Incorporadora vê os documentos dos condomínios vinculados; Super Admin vê tudo.</p></div>'
         )}
         <div class="imo-reg-actions"><button type="button" id="imoRegCancel">Cancelar</button><button type="submit" class="action-btn primary">Salvar condomínio e voltar para a listagem</button></div>
@@ -143,7 +143,7 @@
         address:qs('#regAddress').value.trim(),number:qs('#regNumber').value.trim(),complement:qs('#regComplement').value.trim(),neighborhood:qs('#regNeighborhood').value.trim(),city:qs('#regCity').value.trim(),state:qs('#regState').value.trim().toUpperCase(),
         unitTypes:qs('#regUnitTypes').value.split(',').map(s=>s.trim()).filter(Boolean),blocks:qs('#regBlocks').value.split(',').map(s=>s.trim()).filter(Boolean),
         habiteSe:qs('#regHabite').value?[qs('#regHabite').value]:[],norm:qs('#regNorm').value,modules,maintenancePlans:maint,
-        maintenanceEmail:qs('#regMaintEmail').checked,assistanceSystem:qs('#regAssistance').value,uploadLimit:Number(qs('#regUploadLimit').value||300),
+        maintenanceEmail:qs('#regMaintEmail').checked,autoResidentApproval:qs('#regAutoResidentApproval')?.checked===true,assistanceSystem:qs('#regAssistance').value,uploadLimit:Number(qs('#regUploadLimit').value||300),
         files:[],customManuals:[],tickets:[],reservations:[],warranties:[],notices:[],occurrences:[]
       };
       if(!x.unitTypes.includes('TIPO'))x.unitTypes.unshift('TIPO');
