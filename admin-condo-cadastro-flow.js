@@ -94,7 +94,7 @@
     ],`<div class="av4-cadastro-note"><b>Importante</b><span>Os demais dados cadastrais e acessos da incorporadora serão vinculados ao cadastro existente durante a migração do banco legado.</span></div>`,steps[3].id));
 
     blocks.push(section('⚙','Configurações iniciais','Regras operacionais que já nascem definidas no cadastro do condomínio.',[
-      labelById(form,'v4-assistance-system'),labelById(form,'v4-upload-limit')
+      labelById(form,'v4-assistance-system'),labelById(form,'v4-upload-limit'),labelById(form,'v4-auto-resident-approval')
     ],`<div class="av4-default-rule"><span>✓</span><div><b>Manutenções do condomínio</b><small>Ativado por padrão no cadastro. As rotinas pré-definidas serão selecionadas conforme o empreendimento.</small></div></div>`,steps[4].id));
 
     const wrap=document.createElement('div');
