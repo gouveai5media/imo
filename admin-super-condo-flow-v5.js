@@ -28,7 +28,7 @@
   function uid(){return 'condo-'+Date.now()+'-'+Math.random().toString(36).slice(2,7);}
   function today(){return new Date().toISOString().slice(0,10);}
   function endDate(start,years){if(!start||years==='custom')return '';const d=new Date(start+'T12:00:00');d.setFullYear(d.getFullYear()+Number(years));d.setDate(d.getDate()-1);return d.toISOString().slice(0,10);}
-  function toastMsg(m){try{if(typeof toast==='function')toast(m);}catch(e){}}
+  function toastMsg(m){try{if(typeof toast==='function')toast(m);}catch(e){}}\n  window.imoCondoAutoApprovesResidents=function(idOrName){const d=load();const c=d.find(x=>x.id===idOrName||x.name===idOrName);return !!(c&&c.autoResidentApproval===true);};
 
   function patchAdminNav(){
     try{
