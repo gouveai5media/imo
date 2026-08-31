@@ -1,0 +1,723 @@
+[
+  {
+    "system": "Exaustão",
+    "subsystem": "Mecânica",
+    "active": true,
+    "activities": [
+      {
+        "text": "Realizar a manutenção e limpeza do sistema de exaustão mecânica",
+        "value": 1,
+        "unit": "Ano(s)",
+        "responsible": "Local / Especializada",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Hidráulica",
+    "subsystem": "Água potável",
+    "active": true,
+    "activities": [
+      {
+        "text": "Verificar o nível dos reservatórios, o funcionamento das torneiras de boia e a chave de boia para controle de nível",
+        "value": 1,
+        "unit": "Semana(s)",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Efetuar o rodízio das bombas, por meio da chave de alternância no painel elétrico (quando o quadro elétrico não realizar a reversão automática).",
+        "value": 15,
+        "unit": "Dia(s)",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Reapertar manualmente os parafusos das tampas dos vasos sanitários",
+        "value": 1,
+        "unit": "Mês(es)",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Realizar limpeza dos aparelhos hidrossanitários",
+        "value": 1,
+        "unit": "Mês(es)",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Verificar funcionalidade do extravasor (ladrão) dos reservatórios, evitando entupimentos por incrustações ou sujeiras",
+        "value": 6,
+        "unit": "Mês(es)",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Verificar mecanismos internos da caixa acoplada",
+        "value": 6,
+        "unit": "Mês(es)",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Verifique as estanqueidades dos registros de gaveta",
+        "value": 6,
+        "unit": "Mês(es)",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Abrir e fechar completamente os registros dos reservatórios de modo a evitar emperramentos e os mantendo em condições de manobra",
+        "value": 6,
+        "unit": "Mês(es)",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Limpar e verificar a regulagem dos mecanismos de descarga",
+        "value": 6,
+        "unit": "Mês(es)",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Limpar os aeradores (bicos removíveis) das torneiras.",
+        "value": 6,
+        "unit": "Mês(es)",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Limpar os reservatórios e fornecer atestado de potabilidade; Obs.: Isolar as tubulações da válvula redutora de pressão durante a limpeza dos reservatórios superiores, quando existentes;",
+        "value": 6,
+        "unit": "Mês(es)",
+        "responsible": "Especializada",
+        "active": true
+      },
+      {
+        "text": "Verificar a estanqueidade da válvula de descarga, torneira automática e torneira eletrônica.",
+        "value": 1,
+        "unit": "Ano(s)",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Verificar as tubulações de água potável para detectar obstruções, perda de estanqueidade e sua fixação, recuperar sua integridade onde necessário.",
+        "value": 1,
+        "unit": "Ano(s)",
+        "responsible": "Local / Capacitada",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Combate a incêndio",
+    "subsystem": "Bombas",
+    "active": true,
+    "activities": [
+      {
+        "text": "Verificar o nível dos reservatórios e o funcionamento das torneiras de boia e a chave de boia para controle de nível",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Verificar a estanqueidade do sistema",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Acionar a bomba de incêndio (para tanto pode-se acionar o dreno da tubulação) ou por meio de botoeira ao lado do hidrante. Devem ser observadas as orientações da companhia de seguros do edifício ou do projeto de instalações específico.",
+        "value": 1,
+        "unit": "Mês(es)",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Efetuar manutenção nas bombas de incêndio",
+        "value": 6,
+        "unit": "Mês(es)",
+        "responsible": "Especializada",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Elétrica",
+    "subsystem": "Grupo moto gerador (GMG)",
+    "active": true,
+    "activities": [
+      {
+        "text": "Completar o nível de combustível (diesel) e verificar obstrução nas entradas e saídas de ar do GMG",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Acionar o GMG por (15 a 30min) e verificar antes e depois: nível de combustível, nível de óleo, nível de água, alertas no quadro de comando, possíveis obstruções nas entradas e saídas de ar e averiguar possíveis vazamentos",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Realizar manutenção periódica do GMG",
+        "value": null,
+        "unit": "",
+        "responsible": "Especializada",
+        "active": true
+      },
+      {
+        "text": "Realizar limpeza da sala e da carenagem do sistema grupo Motogerador.",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Ar condicionado (área comum)",
+    "subsystem": "Sistema",
+    "active": true,
+    "activities": [
+      {
+        "text": "Ligar o sistema de ar-condicionado ou conforme fabricante do equipamento",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Realizar limpeza dos componentes e filtros, mesmo em período de não utilização do ar-condicionado",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Vidros",
+    "subsystem": "Sistema",
+    "active": true,
+    "activities": [
+      {
+        "text": "Realizar a limpeza dos vidros internos.",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Realizar a limpeza dos vidros externos e manutenção geral do sistema (se necessário).",
+        "value": null,
+        "unit": "",
+        "responsible": "Especializada",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Piso cimentado",
+    "subsystem": "Sistema",
+    "active": true,
+    "activities": [
+      {
+        "text": "Limpeza das calçadas",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Acessibilidade",
+    "subsystem": "Sistema",
+    "active": true,
+    "activities": [
+      {
+        "text": "Limpar todos os pontos táteis do sistema e manter limpos e sem vestígios de produtos inadequados em suas superfícies (gordura, oleosidade etc.)",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Verificar a integridade dos componentes e se necessário, efetuar limpeza, reparos ou pintura",
+        "value": null,
+        "unit": "",
+        "responsible": "Capacitada / Especializada",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Churrasqueira",
+    "subsystem": "Carvão",
+    "active": true,
+    "activities": [
+      {
+        "text": "Fazer limpeza geral",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Piscina",
+    "subsystem": "Geral",
+    "active": true,
+    "activities": [
+      {
+        "text": "Lavar o filtro",
+        "value": null,
+        "unit": "",
+        "responsible": "Local / Capacitada",
+        "active": true
+      },
+      {
+        "text": "Adicione algicidas, para evitar a formação de algas",
+        "value": null,
+        "unit": "",
+        "responsible": "Local / Capacitada",
+        "active": true
+      },
+      {
+        "text": "Controlar o pH da água",
+        "value": null,
+        "unit": "",
+        "responsible": "Local / Capacitada",
+        "active": true
+      },
+      {
+        "text": "Realizar a limpeza da bomba, retirando a sujeira acumulada no compartimento;",
+        "value": null,
+        "unit": "",
+        "responsible": "Local / Capacitada",
+        "active": true
+      },
+      {
+        "text": "Limpar os filtros, utilizando as funções retro lavagem e enxágue.",
+        "value": null,
+        "unit": "",
+        "responsible": "Local / Capacitada",
+        "active": true
+      },
+      {
+        "text": "Limpar as bordas das piscinas com produtos específicos, removendo vestígios oleosos",
+        "value": null,
+        "unit": "",
+        "responsible": "Local / Capacitada",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Louças e torneiras",
+    "subsystem": "Equipamentos",
+    "active": true,
+    "activities": [
+      {
+        "text": "Verificar mecanismo da caixa acoplada",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Verificar estanqueidade dos registros",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Limpar e regular o mecanismo do vaso sanitário",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Limpar os aeradores das torneiras",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Abrir e fechar os registros inteiramente para evitar emperramento",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Verificar possível entupimento da rede pluvial",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Guarda corpo",
+    "subsystem": "Equipamentos",
+    "active": true,
+    "activities": [
+      {
+        "text": "Limpeza dos guarda-corpos conforme seu material de constituição",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Elevadores",
+    "subsystem": "Equipamentos",
+    "active": true,
+    "activities": [
+      {
+        "text": "Observar o funcionamento do ventilador da cabine do elevador e das botoeiras, Verificar a limpeza interna da cabine",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Verificar o funcionamento do alarme, do sistema de interfone e da luz de emergência, todos situados no interior da cabine do elevador",
+        "value": null,
+        "unit": "",
+        "responsible": "Especializada",
+        "active": true
+      },
+      {
+        "text": "Verificar existência de ruídos e/ou odores anormais no subsistema elevador e se necessário, efetuar chamado a empresa especializada para reparo.",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Portões Automatizados",
+    "subsystem": "Equipamentos",
+    "active": true,
+    "activities": [
+      {
+        "text": "Limpar os trilhos que correm os portões",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Verificar a integridade dos componentes e se necessário, efetuar limpeza, reparos e aplicar desengripante nos motores (não passar graxa)",
+        "value": null,
+        "unit": "",
+        "responsible": "Capacitada / Especializada",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Revestimento cerâmico",
+    "subsystem": "Interno",
+    "active": true,
+    "activities": [
+      {
+        "text": "Limpeza dos revestimentos cerâmicos",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Sauna",
+    "subsystem": "Úmida",
+    "active": true,
+    "activities": [
+      {
+        "text": "Fazer a drenagem de água no equipamento",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "(escoar a água abrindo a torneira ou tampão)",
+        "value": null,
+        "unit": "",
+        "responsible": "Capacitada / Especializada",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Estrutura",
+    "subsystem": "Convencional",
+    "active": true,
+    "activities": [
+      {
+        "text": "Efetuar verificação geral e atentar para qualquer patologia que surja, contatar profissional habilitado caso for constatada qualquer patologia",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Ático",
+    "subsystem": "Calhas",
+    "active": true,
+    "activities": [
+      {
+        "text": "Efetue limpeza dos ralos, evitando sobrecargas, acúmulo de umidade e entupimentos",
+        "value": null,
+        "unit": "",
+        "responsible": "Capacitada / Especializada",
+        "active": true
+      },
+      {
+        "text": "Reapertar os parafusos de fixação das telhas de fibrocimento e de outros componentes do sistema.",
+        "value": null,
+        "unit": "",
+        "responsible": "Capacitada / Especializada",
+        "active": true
+      },
+      {
+        "text": "Vistoriar as canaletas de captação de água na cobertura e ralos esféricos, mantendo limpeza periódica para evitar entupimentos.",
+        "value": null,
+        "unit": "",
+        "responsible": "Local / Especializada",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Segurança",
+    "subsystem": "Escada Pressurizada",
+    "active": true,
+    "activities": [
+      {
+        "text": "Verificar visualmente o fechamento das portas e, se necessário, solicitar reparo",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Aplicar óleo lubrificante nas dobradiças e maçanetas para garantir o seu perfeito funcionamento",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Verificar abertura e fechamento a 45°. Se for necessário fazer regulagem, chamar empresa especializada",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Verificar as portas e, se necessário, realizar regulagens e ajustes",
+        "value": null,
+        "unit": "",
+        "responsible": "Capacitada / Especializada",
+        "active": true
+      },
+      {
+        "text": "Efetuar vistoria de todas as lâmpadas e substituição de eventuais lâmpadas queimadas, por equipamentos com especificação idêntica.",
+        "value": null,
+        "unit": "",
+        "responsible": "Capacitada",
+        "active": true
+      },
+      {
+        "text": "Alternar a operação dos ventiladores por chave comutadora, para que não haja desgaste ou emperramento de motores parados por muito tempo",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Realizar manutenção especializada do sistema",
+        "value": null,
+        "unit": "",
+        "responsible": "Especializada",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Piso Elevado",
+    "subsystem": "Externo",
+    "active": true,
+    "activities": [
+      {
+        "text": "Regular o nivelamento das placas e, se necessário, providenciar ajustes",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Efetuar a limpeza do piso apenas com água e sabão neutro (não utilizar detergentes)",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Controle de Pragas",
+    "subsystem": "Geral",
+    "active": true,
+    "activities": [
+      {
+        "text": "Verificar os coletores, contentores e espaços de armazenamento e caso haja problemas, providenciar reparos ou trocas",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Portas e batentes",
+    "subsystem": "Madeira",
+    "active": true,
+    "activities": [
+      {
+        "text": "Limpeza das esquadrias de madeira",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Pergolado",
+    "subsystem": "Metálico",
+    "active": true,
+    "activities": [
+      {
+        "text": "Efetuar limpeza geral das partes metálicas e seus componentes panos macios, embebidos com detergente neutro e água em solução de 5%. Todo e qualquer excesso deve ser retirado com pano seco. Jamais utilizar água em abundância.",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Esquadrias",
+    "subsystem": "Alumínio",
+    "active": true,
+    "activities": [
+      {
+        "text": "Efetuar limpeza geral das esquadrias e seus componentes panos macios, embebidos com detergente neutro e água em solução de 5%. Todo e qualquer excesso deve ser retirado com pano seco. Jamais utilizar água em abundância.",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Pintura",
+    "subsystem": "Interna",
+    "active": true,
+    "activities": [
+      {
+        "text": "Ventilação dos ambientes e limpeza das superfícies pintadas internas conforme item limpeza acima.",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Bicicletário",
+    "subsystem": "Geral",
+    "active": true,
+    "activities": [
+      {
+        "text": "Inspeção do bicicletário e das bicicletas para identificação de corrosão (ferrugem / oxidação), fixação (aparafusamento, chumbamento etc.). Caso sejam identificados pontos de oxidação, deve-se lixar para remover a ferrugem, limpar o local e repintar com as mesmas especificações da tinta original para proteção e conservação das peças.",
+        "value": null,
+        "unit": "",
+        "responsible": "Local / Capacitada",
+        "active": true
+      },
+      {
+        "text": "Conferir as placas e sinalizações.",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Fechaduras e ferragens",
+    "subsystem": "Equipamentos",
+    "active": true,
+    "activities": [
+      {
+        "text": "Aplicar vaselina líquida nas superfícies em aço inox escovados das fechaduras e ferragens.",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      },
+      {
+        "text": "Aplicar massa de polir nas superfícies em aço inox polidos das fechaduras e ferragens.",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  },
+  {
+    "system": "Revestimento em Pedra",
+    "subsystem": "Geral",
+    "active": true,
+    "activities": [
+      {
+        "text": "No caso de peças polidas (ex.: pisos, bancadas de granito etc.), verificar e, se necessário, encerar",
+        "value": null,
+        "unit": "",
+        "responsible": "Especializada",
+        "active": true
+      },
+      {
+        "text": "Nas áreas de circulação intensa, o enceramento deve acontecer com periodicidade inferior, a fim de manter uma camada protetora",
+        "value": null,
+        "unit": "",
+        "responsible": "Local",
+        "active": true
+      }
+    ]
+  }
+]
